@@ -30,6 +30,11 @@ _qvm_known_devices()
     /usr/bin/qvm-block --list | grep "$1" | sed 's/\t.*//g' | sort | tr '\n' ' '
 }
 
+_qvm_known_services()
+{
+   systemctl list-units --all | grep "^qubes-" | fgrep -v '@' | sed -e 's/^qubes-//g' -e 's/\.service.*//g' | tr '\n' ' '
+}
+
 _qvm_cmd()
 {
     local cmd=$1; shift
@@ -76,6 +81,11 @@ _qvm_cmd()
            $prev == '-D' || $prev == '--dns' || \
            $prev == '-Y' || $prev == '--yum-proxy') ]]; then
         COMPREPLY=($(compgen -W "allow deny" -- $cur)) # Access (allow/deny)
+        return 0
+    fi
+
+    if [[ $cmd == 'qvm-service' && $COMP_CWORD > 2 ]]; then
+        COMPREPLY=($(compgen -W "$(_qvm_known_services)" -- $cur)) # Services
         return 0
     fi
 
@@ -215,8 +225,6 @@ _qvm_shutdown()
         --exclude
 }
 
-# FIXME: Help is incorrect: no [action] argument is taken.
-# Would be nice to be able to list all possible services
 _qvm_service()
 {
     _qvm_cmd 'qvm-service' -l --list -e --enable -d --disable -D --default
