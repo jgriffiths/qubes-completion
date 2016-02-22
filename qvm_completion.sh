@@ -121,6 +121,7 @@ _qvm_backup_restore()
         --compressed --debug
 }
 
+# FIXME: Using qvm-block to attach to dom0 gives an unhelpful error message
 _qvm_block()
 {
     _qvm_cmd 'qvm-block' -l --list -A --attach-file -a --attach -d --detach \
