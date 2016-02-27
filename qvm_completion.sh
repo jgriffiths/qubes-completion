@@ -197,7 +197,7 @@ _qvm_pci()
 # FIXME" Would be nice if we could list all prefs available (--names) for completion
 _qvm_prefs()
 {
-    _qvm_cmd 'qvm-prefs' -l --list -s --set -g -get --force-root \
+    _qvm_cmd 'qvm-prefs' -l --list -s --set -g --get --force-root \
         --offline-mode
 }
 
