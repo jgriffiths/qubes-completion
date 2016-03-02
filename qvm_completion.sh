@@ -89,7 +89,7 @@ _qvm_cmd()
         return 0
     fi
 
-    COMPREPLY=() # Filenames (through readline for directory/file support
+    COMPREPLY=() # Filenames through readline for directory/file support
 
     if [[ $cmd == 'qvm-create-default-dvm' || \
           $prev == '--attach-file' || $prev == '--conf' || $prev == '--path' || \
