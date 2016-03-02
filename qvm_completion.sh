@@ -261,7 +261,7 @@ _qvm_open_in_dvm() { COMPREPLY=( $(compgen -f -- $cur) ); }
 
 __qvm_init_completion()
 {
-    # Register completion functions for all command we have
+    # Register completion functions for all commands we have
     local f
     for f in add-appvm add-template backup backup-restore block check clone \
              copy-to-vm create create-default-dvm firewall grow-private \
