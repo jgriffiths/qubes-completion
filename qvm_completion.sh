@@ -89,7 +89,7 @@ _qvm_cmd()
         return 0
     fi
 
-    COMPREPLY=($(compgen -f -- $cur)) # Filenames
+    COMPREPLY=() # Filenames (through readline for directory/file support
 
     if [[ $cmd == 'qvm-create-default-dvm' || \
           $prev == '--attach-file' || $prev == '--conf' || $prev == '--path' || \
@@ -269,15 +269,15 @@ __qvm_init_completion()
              remove revert-template-changes run shutdown service start \
              sync-clock template-commit trim-template usb; do
         if [[ -x /usr/bin/qvm-$f ]]; then
-            complete -F $(echo "_qvm_$f" | tr '-' '_') qvm-$f
+            complete -o default -F $(echo "_qvm_$f" | tr '-' '_') qvm-$f
         fi
     done
 
     if [[ ! -x /usr/bin/qvm-ls ]]; then
         # Not dom0: some commands have different args (at least for now)
-        complete -F _qvm_run_vm qvm-run
-        complete -F _qvm_copy_to_vm_vm qvm-copy-to-vm
-        complete -F _qvm_move_to_vm_vm qvm-move-to-vm
+        complete -o default -F _qvm_run_vm qvm-run
+        complete -o default -F _qvm_copy_to_vm_vm qvm-copy-to-vm
+        complete -o default -F _qvm_move_to_vm_vm qvm-move-to-vm
     fi
 }
 __qvm_init_completion
